@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhishek Jaiswal | Full Stack Developer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h2 class="logo">Abhishek</h2>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Hi, I'm Abhishek Jaiswal</h1>
+                <h2>Full Stack Developer</h2>
+                <p>I build modern web applications using React, Node.js, and MongoDB.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn primary">View My Work</a>
+                    <button class="btn secondary">Download Resume</button>
+                </div>
+            </div>
+            <div class="profile-container">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Abhishek" alt="Abhishek's Profile"
+                    class="profile-img">
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2 class="section-title">About Me</h2>
+            <p>I am a software developer passionate about building scalable web ecosystems and clean user interface
+                architectures.</p>
+        </section>
+
+        <section id="skills" class="skills-section">
+            <h2 class="section-title">My Tech Stack</h2>
+            <div class="grid-container skills-grid">
+                <div class="card skill-card">Frontend: HTML5, CSS3, JavaScript</div>
+                <div class="card skill-card">Frameworks: React.js, Express.js, Node.js</div>
+                <div class="card skill-card">Database: MongoDB, Firebase</div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects-section">
+            <h2 class="section-title">Projects Built</h2>
+            <div class="grid-container projects-grid" id="projects-grid">
+
+                <div class="card project-card">
+                    <h3>Personal Developer Hub</h3>
+                    <p class="overview">A live-deployed, fully responsive portfolio page integrated with asynchronous
+                        third-party
+                        widget platforms.</p>
+                    <div class="tech-stack">
+                        <span>HTML/CSS</span>
+                        <span>JavaScript ES6</span>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn info-btn"
+                            onclick="showProject('Personal Developer Hub', 'W1 Project: Designed and deployed a live portfolio baseline structure.')">View
+                            Details</button>
+                        <div class="links">
+                            <a href="#" target="_blank">Live Demo</a>
+                            <a href="#" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card project-card">
+                    <h3>Full-Stack Task Manager REST API</h3>
+                    <p class="overview">A production-grade web app featuring decoupled client-server architecture,
+                        database
+                        indexing, and secure token access profiles.</p>
+                    <div class="tech-stack">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>MongoDB</span>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn info-btn"
+                            onclick="showProject('Full-Stack Task Manager REST API', 'W2 Project: Built an end-to-end microservice architecture application.')">View
+                            Details</button>
+                        <div class="links">
+                            <a href="#" target="_blank">Live Demo</a>
+                            <a href="#" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="project-modal" class="modal" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <h2 id="modal-title">Project Name</h2>
+            <p id="modal-description">Description</p>
+            <button class="btn close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <p>&copy; 2026 Abhishek Jaiswal | Full Stack Developer</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
