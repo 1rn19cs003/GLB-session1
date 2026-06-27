@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend UI Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .wireframes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .wireframe-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .wireframe-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .wireframe-content {
+            padding: 20px;
+        }
+        
+        .navbar-preview {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+        }
+        
+        .nav-item {
+            cursor: pointer;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .content-block {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 4px;
+            border: 2px dashed #ccc;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            background: #f9f9f9;
+        }
+        
+        .button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .button:hover {
+            background: #764ba2;
+        }
+        
+        .button-secondary {
+            background: #95a5a6;
+        }
+        
+        .button-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .page-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .page-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .card-item {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-image {
+            width: 60px;
+            height: 60px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .legend {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .legend-item {
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .component-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .component-box {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .component-name {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .component-desc {
+            color: #666;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Frontend UI Wireframe</h1>
+        
+        <!-- Pages Preview -->
+        <div class="wireframes">
+            <!-- Home Page -->
+            <div class="wireframe-card">
+                <div class="wireframe-header">📄 Home Page</div>
+                <div class="wireframe-content">
+                    <div class="navbar-preview">
+                        <div class="nav-logo">ProjectHub</div>
+                        <div class="nav-items">
+                            <div class="nav-item">Home</div>
+                            <div class="nav-item">Projects</div>
+                            <div class="nav-item">Developers</div>
+                            <div class="nav-item">Login</div>
+                        </div>
+                    </div>
+                    <div class="content-block full-width" style="height: 120px;">Hero Section - Welcome</div>
+                    <div class="page-title" style="font-size: 14px; margin-top: 15px;">Featured Projects</div>
+                    <div class="content-grid">
+                        <div class="content-block">Project Card</div>
+                        <div class="content-block">Project Card</div>
+                        <div class="content-block">Project Card</div>
+                        <div class="content-block">Project Card</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Login Page -->
+            <div class="wireframe-card">
+                <div class="wireframe-header">🔐 Login Page</div>
+                <div class="wireframe-content">
+                    <div class="navbar-preview">
+                        <div class="nav-logo">ProjectHub</div>
+                    </div>
+                    <div class="content-block full-width" style="height: 40px; background: white; border: none;">Login Form</div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-input" placeholder="user@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="text" class="form-input" placeholder="••••••••">
+                    </div>
+                    <button class="button full-width" style="width: 100%;">Sign In</button>
+                </div>
+            </div>
+            
+            <!-- Dashboard Page -->
+            <div class="wireframe-card">
+                <div class="wireframe-header">📊 User Dashboard</div>
+                <div class="wireframe-content">
+                    <div class="navbar-preview">
+                        <div class="nav-logo">ProjectHub</div>
+                        <div class="nav-items">
+                            <div class="nav-item">Profile</div>
+                            <div class="nav-item">Logout</div>
+                        </div>
+                    </div>
+                    <div class="page-title" style="font-size: 14px;">My Dashboard</div>
+                    <div class="content-grid">
+                        <div class="content-block">User Stats</div>
+                        <div class="content-block">Recent Activity</div>
+                        <div class="content-block full-width">My Projects</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Admin Dashboard -->
+            <div class="wireframe-card">
+                <div class="wireframe-header">👨‍💼 Admin Dashboard</div>
+                <div class="wireframe-content">
+                    <div class="navbar-preview">
+                        <div class="nav-logo">ProjectHub Admin</div>
+                        <div class="nav-items">
+                            <div class="nav-item">Users</div>
+                            <div class="nav-item">Projects</div>
+                            <div class="nav-item">Comments</div>
+                        </div>
+                    </div>
+                    <div class="content-grid">
+                        <div class="content-block">Total Users</div>
+                        <div class="content-block">Total Projects</div>
+                        <div class="content-block full-width">Recent Activity Log</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projects Page -->
+            <div class="wireframe-card">
+                <div class="wireframe-header">🚀 Projects Page</div>
+                <div class="wireframe-content">
+                    <div class="navbar-preview">
+                        <div class="nav-logo">ProjectHub</div>
+                        <div class="nav-items">
+                            <div class="nav-item">Filter</div>
+                            <div class="nav-item">Sort</div>
+                        </div>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card-item">
+                            <div class="card-image"></div>
+                            <div>Project 1</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-image"></div>
+                            <div>Project 2</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-image"></div>
+                            <div>Project 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Developers Page -->
+            <div class="wireframe-card">
+                <div class="wireframe-header">👨‍💻 Developers Page</div>
+                <div class="wireframe-content">
+                    <div class="navbar-preview">
+                        <div class="nav-logo">ProjectHub</div>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card-item">
+                            <div class="card-image"></div>
+                            <div>Dev 1</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-image"></div>
+                            <div>Dev 2</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-image"></div>
+                            <div>Dev 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Component Structure -->
+        <div class="page-section">
+            <div class="page-title">📦 Component Structure</div>
+            <div class="component-list">
+                <div class="component-box">
+                    <div class="component-name">Navbar</div>
+                    <div class="component-desc">Navigation bar with logo and menu items. Responsive for mobile.</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-name">Button</div>
+                    <div class="component-desc">Reusable button component with primary/secondary variants.</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-name">ProjectCard</div>
+                    <div class="component-desc">Card component for displaying project information.</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-name">DeveloperCard</div>
+                    <div class="component-desc">Card component for displaying developer profiles.</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-name">ProtectedRoute</div>
+                    <div class="component-desc">Wrapper for routes requiring authentication.</div>
+                </div>
+                <div class="component-box">
+                    <div class="component-name">AuthContext</div>
+                    <div class="component-desc">Global authentication state management using React Context API.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-title">📋 Page Structure & Context</div>
+            <div class="legend-item"><strong>Pages:</strong> Home, Login, Register, Dashboard, Admin Dashboard, Profile, Projects, Project Detail, Developers</div>
+            <div class="legend-item"><strong>Components:</strong> Navbar, Button, ProjectCard, DeveloperCard, ProtectedRoute</div>
+            <div class="legend-item"><strong>Services:</strong> API integration via api.js</div>
+            <div class="legend-item"><strong>Auth Flow:</strong> AuthContext manages login state and user data</div>
+            <div class="legend-item"><strong>Styling:</strong> CSS modules per component + global CSS</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+flowchart TD
+    A[" React — UI as Components"]:::section
+
+    A --> WHY
+    
+    subgraph WHY[" Why React?"]
+        W1["Vanilla JS\n- Manual DOM updates\n- document.querySelector\n- .innerText = 'new value'\n- Hard to keep UI sync"]
+        W2["React\n- Declarative UI\n- Write what you want\n- React handles DOM\n- UI auto-syncs with data"]
+        W1 -->|Problem| W2
+    end
+
+    subgraph COMP[" Components — Building Blocks"]
+        C1["Function Component\nJavaScript function\nreturns JSX"]
+        C2["Class Component\nOlder style\nrare now"]
+        C3["Reusable\n&lt;Button /&gt;\n&lt;Card /&gt;\n&lt;ProductList /&gt;"]
+        C1 --> C3
+        C2 --> C3
+    end
+
+    subgraph JSX[" JSX — HTML-like syntax in JavaScript"]
+        J1["Not real HTML\nCompiles to JS function calls"]
+        J2["Curly braces = JS\n{variable}\n{list.map((item) => ...)}\n{count > 0 && 'Yes'}"]
+        J3["Class → className\nFor → loop in map()\nonChange → event handler"]
+        J1 --> J2 --> J3
+    end
+
+    subgraph PROPS[" Props — Parent → Child data"]
+        P1["Read-only\nChild cannot modify"]
+        P2["Passed like HTML attributes\n&lt;Card title='Shoes' price={99} /&gt;"]
+        P3["Function parameter\nfunction Card({title, price}) { }"]
+        P4["Prop drilling problem\nDeep nesting = many params"]
+        P2 --> P3
+        P3 --> P4
+    end
+
+    subgraph STATE[" State — Component Memory"]
+        S1["useState Hook\nconst [value, setValue] = useState(init)"]
+        S2["Triggers re-render\nComponent function runs again\nUI updates with new value"]
+        S3["State = immutable\nNever do: state.x = 5\nAlways: setState(newValue)"]
+        S1 --> S2 --> S3
+    end
+
+    subgraph RENDER[" React Rendering"]
+        R1["Initial render\nComponent fn runs → JSX → HTML → DOM"]
+        R2["Update render\nState/props change\nfn runs again → new JSX\nReact diffs & updates only changed parts"]
+        R3["Virtual DOM\nReact's internal copy\nFast diffing algo\nEfficient updates"]
+        R1 --> R2 --> R3
+    end
+
+    subgraph FLOW[" Data Flow — One Direction"]
+        F1["Props: Parent → Child\nOne way only"]
+        F2["Events: Child → Parent\nvia callback prop\n&lt;Button onClick={handleClick} /&gt;"]
+        F3["Child wants to update parent?\nCall callback in event\nParent updates its state\nProps re-render child"]
+        F1 --> F2 --> F3
+    end
+
+    subgraph TREE[" Component Tree Example"]
+        T1["App\nRoot component"]
+        T2["Header\nNavBar"]
+        T3["Main\nProductList"]
+        T4["Footer"]
+        T5["ProductCard\nProductCard\nProductCard"]
+        T1 --> T2
+        T1 --> T3
+        T1 --> T4
+        T3 --> T5
+    end
+
+    subgraph HOOKS[" React Hooks — Add features to functions"]
+        H1["useState\nAdd state to function"]
+        H2["useEffect\nRun side effects\n(fetch, timers, cleanup)"]
+        H3["useContext\nAccess shared data\n(avoid prop drilling)"]
+        H4["useRef\nDirect DOM access\n(rare)"]
+        H5["Custom Hooks\nReuse logic\n(advanced)"]
+    end
+
+    WHY --> COMP
+    COMP --> JSX
+    JSX --> PROPS
+    PROPS --> STATE
+    STATE --> RENDER
+    RENDER --> FLOW
+    FLOW --> TREE
+    TREE --> HOOKS
+
+    classDef section fill:#6366f1,stroke:#4338ca,color:#fff
+    classDef bad fill:#dc2626,stroke:#b91c1c,color:#fff
+    classDef good fill:#10b981,stroke:#059669,color:#fff

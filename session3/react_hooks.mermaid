@@ -1,0 +1,103 @@
+flowchart TD
+    A[" React Hooks - Complete Guide"]:::title
+    
+    A --> CATEGORY["Hooks Categories"]
+    
+    CATEGORY --> STATE[" STATE HOOKS"]
+    STATE --> S1["useState - Add state to component"]
+    S1 --> S1CODE["const [count, setCount] = useState(0)<br/>const [user, setUser] = useState(null)"]
+    S1 --> S1USE["✓ Simple values<br/>✓ Strings, numbers, booleans<br/>✓ Arrays, objects"]
+    
+    STATE --> S2["useReducer - Complex state logic"]
+    S2 --> S2CODE["const [state, dispatch] = useReducer(reducer, init)"]
+    S2 --> S2USE["✓ Multiple related state values<br/>✓ Complex state transitions<br/>✓ Shared state logic"]
+    
+    CATEGORY --> SIDE[" SIDE EFFECT HOOKS"]
+    SIDE --> SF1["useEffect - Run side effects"]
+    SF1 --> SF1CODE["useEffect(() => { fetch(url) }, [])"]
+    SF1 --> SF1USE["✓ Fetch data from APIs<br/>✓ Set up subscriptions<br/>✓ Manipulate DOM<br/>✓ Timers & intervals"]
+    SF1 --> SF1TIMING["Runs: AFTER render<br/>Returns: cleanup function"]
+    
+    SIDE --> SF2["useLayoutEffect - Sync side effects"]
+    SF2 --> SF2CODE["useLayoutEffect(() => { ... }, [])"]
+    SF2 --> SF2USE["✓ Read DOM layout<br/>✓ Sync DOM changes<br/>✓ Avoid visual flicker"]
+    SF2 --> SF2TIMING["Runs: BEFORE paint<br/>Slower than useEffect"]
+    
+    CATEGORY --> PERF[" PERFORMANCE HOOKS"]
+    PERF --> P1["useMemo - Memoize calculated values"]
+    P1 --> P1CODE["const value = useMemo(() => expensiveCalc(dep), [dep])"]
+    P1 --> P1USE["✓ Expensive calculations<br/>✓ Object/array creation<br/>✓ Derived values"]
+    P1 --> P1WHEN["When: Only if calculation is slow"]
+    
+    PERF --> P2["useCallback - Memoize functions"]
+    P2 --> P2CODE["const fn = useCallback(() => handleClick(), [dep])"]
+    P2 --> P2USE["✓ Pass stable function to children<br/>✓ Use in useEffect deps<br/>✓ Event handlers"]
+    P2 --> P2WHEN["When: Passing to memoized components"]
+    
+    CATEGORY --> REF[" REFERENCE HOOKS"]
+    REF --> R1["useRef - Direct DOM access"]
+    R1 --> R1CODE["const inputRef = useRef(null)<br/>&lt;input ref={inputRef} /&gt;"]
+    R1 --> R1USE["✓ Focus input element<br/>✓ Play/pause video<br/>✓ Store mutable value<br/>✓ Doesn't trigger re-render"]
+    
+    REF --> R2["useContext - Access shared data"]
+    R2 --> R2CODE["const value = useContext(MyContext)"]
+    R2 --> R2USE["✓ Avoid prop drilling<br/>✓ Global theme/auth<br/>✓ Shared configuration"]
+    
+    CATEGORY --> OTHER[" OTHER HOOKS"]
+    OTHER --> O1["useId - Generate unique IDs"]
+    O1 --> O1CODE["const id = useId()  // &quot;:r1:&quot;"]
+    
+    OTHER --> O2["useDeferredValue - Defer rendering"]
+    O2 --> O2CODE["const deferredValue = useDeferredValue(value)"]
+    
+    OTHER --> O3["useTransition - Non-blocking updates"]
+    O3 --> O3CODE["const [isPending, startTransition] = useTransition()"]
+    
+    OTHER --> O4["useImperativeHandle - Customize ref"]
+    O4 --> O4CODE["useImperativeHandle(ref, () => ({ ... }))"]
+    
+    OTHER --> CUSTOM[" Custom Hooks"]
+    CUSTOM --> CUSTOM1["Create reusable logic"]
+    CUSTOM1 --> CUSTOM1CODE["function useFetch(url) {<br/>  const [data, setData] = useState(null)<br/>  useEffect(() => { ... }, [url])<br/>  return data<br/>}"]
+    
+    A --> COMPARISON[" Quick Comparison"]
+    COMPARISON --> COMP1["useState vs useReducer"]
+    COMP1 --> COMP1T["useState: Simple • Few variables<br/>useReducer: Complex • Many variables<br/>useReducer: Shared logic between state"]
+    
+    COMPARISON --> COMP2["useMemo vs useCallback"]
+    COMP2 --> COMP2T["useMemo: Memoize VALUES<br/>useCallback: Memoize FUNCTIONS<br/>useCallback(fn, deps) = useMemo(() => fn, deps)"]
+    
+    COMPARISON --> COMP3["useEffect vs useLayoutEffect"]
+    COMP3 --> COMP3T["useEffect: After render (async)<br/>useLayoutEffect: Before paint (sync)<br/>useEffect: 99% of cases"]
+    
+    A --> RULES[" HOOKS RULES (Important!)"]
+    RULES --> RULE1["✓ Call at top level only"]
+    RULE1 --> RULE1NO["❌ NOT inside loops, conditions, nested functions"]
+    
+    RULES --> RULE2["✓ Call in functional components"]
+    RULE2 --> RULE2NO["❌ NOT in class components or regular functions"]
+    
+    RULES --> RULE3["✓ Call in same order every render"]
+    RULE3 --> RULE3NO["❌ Conditional hooks cause issues"]
+    
+    RULES --> RULE4["✓ List all dependencies"]
+    RULE4 --> RULE4NO["❌ Missing deps = bugs and stale closures"]
+    
+    A --> PATTERNS["Daily Patterns"]
+    PATTERNS --> PAT1["Fetch data on mount"]
+    PAT1 --> PAT1CODE["useEffect(() => {<br/>  fetch(url).then(setData)<br/>}, [])"]
+    
+    PATTERNS --> PAT2["Refetch on variable change"]
+    PAT2 --> PAT2CODE["useEffect(() => {<br/>  fetch(url).then(setData)<br/>}, [id])  // Re-run when id changes"]
+    
+    PATTERNS --> PAT3["Debounce search"]
+    PAT3 --> PAT3CODE["useEffect(() => {<br/>  const timer = setTimeout(() => search(q), 500)<br/>  return () => clearTimeout(timer)<br/>}, [q])"]
+    
+    PATTERNS --> PAT4["Setup & cleanup"]
+    PAT4 --> PAT4CODE["useEffect(() => {<br/>  addEventListener('resize', fn)<br/>  return () => removeEventListener('resize', fn)<br/>}, [])"]
+    
+    classDef title fill:#6366f1,stroke:#4338ca,color:#fff,font-size:16px
+    classDef good fill:#10b981,stroke:#059669,color:#fff
+    classDef warn fill:#f59e0b,stroke:#d97706,color:#fff
+    classDef info fill:#3b82f6,stroke:#1d4ed8,color:#fff
+    classDef code fill:#f3f4f6,stroke:#d1d5db,color:#1f2937,font-family:monospace

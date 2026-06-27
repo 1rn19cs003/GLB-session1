@@ -1,0 +1,84 @@
+flowchart TD
+    A[" useEffect & React Lifecycle"]:::title
+    
+    A --> LIFECYCLE["Component Lifecycle in React (Functional Components)"]
+    
+    LIFECYCLE --> MOUNT[" MOUNT PHASE (Component Created)"]
+    MOUNT --> MOUNT1["1. Component function runs"]
+    MOUNT1 --> MOUNT2["2. Initial state/variables created"]
+    MOUNT2 --> MOUNT3["3. JSX evaluated"]
+    MOUNT3 --> MOUNT4["4. DOM rendered (visible on page)"]
+    MOUNT4 --> MOUNT5["5. useEffect with [] runs (AFTER render)"]
+    
+    LIFECYCLE --> UPDATE[" UPDATE PHASE (Props/State Change)"]
+    UPDATE --> UPD1["1. Component function runs again"]
+    UPD1 --> UPD2["2. useEffect dependencies checked"]
+    UPD2 --> UPD3["3. If deps changed: cleanup runs"]
+    UPD3 --> UPD4["4. New effect runs"]
+    UPD4 --> UPD5["5. DOM updated (re-render)"]
+    
+    LIFECYCLE --> UNMOUNT[" UNMOUNT PHASE (Component Removed)"]
+    UNMOUNT --> UNMOUNT1["1. Cleanup function runs"]
+    UNMOUNT1 --> UNMOUNT2["2. Component removed from DOM"]
+    UNMOUNT2 --> UNMOUNT3["3. Memory freed"]
+    
+    A --> EFFECTS["useEffect Patterns"]
+    
+    EFFECTS --> EFFECT1[" Run Once (On Mount Only)"]
+    EFFECT1 --> EFFECT1A["useEffect(() => { ... }, [])"]
+    EFFECT1A --> EFFECT1B["Runs: Once on mount"]
+    EFFECT1B --> EFFECT1C["Cleanup: On unmount"]
+    EFFECT1C --> EFFECT1USE["✓ Fetch initial data<br/>✓ Set up subscriptions<br/>✓ Initialize"]
+    
+    EFFECTS --> EFFECT2[" Run on Dependency Change"]
+    EFFECT2 --> EFFECT2A["useEffect(() => { ... }, [dep1, dep2])"]
+    EFFECT2A --> EFFECT2B["Runs: When dependencies change"]
+    EFFECT2B --> EFFECT2C["Cleanup: Before new effect"]
+    EFFECT2C --> EFFECT2USE["✓ Refetch when ID changes<br/>✓ Update when data changes<br/>✓ Recalculate on input"]
+    
+    EFFECTS --> EFFECT3[" Run Every Render (RISKY!)"]
+    EFFECT3 --> EFFECT3A["useEffect(() => { ... })"]
+    EFFECT3A --> EFFECT3B["Runs: After EVERY render"]
+    EFFECT3B --> EFFECT3C["Cleanup: Before every effect"]
+    EFFECT3C --> EFFECT3WARN["⚠️ Can cause infinite loops!<br/>Use with caution"]
+    
+    A --> CLEANUP["Cleanup Function Pattern"]
+    CLEANUP --> CLEAN1["Why Cleanup?"]
+    CLEAN1 --> CLEAN1A["Prevent memory leaks"]
+    CLEAN1A --> CLEAN1B["Cancel pending requests"]
+    CLEAN1B --> CLEAN1C["Remove event listeners"]
+    CLEAN1C --> CLEAN1D["Unsubscribe from events"]
+    
+    CLEANUP --> CLEAN2["When Cleanup Runs?"]
+    CLEAN2 --> CLEAN2A["Before next effect (if deps change)"]
+    CLEAN2A --> CLEAN2B["On component unmount"]
+    CLEAN2B --> CLEAN2C["NOT before first effect"]
+    
+    CLEANUP --> CLEAN3["Example: Cleanup Pattern"]
+    CLEAN3 --> CLEAN3CODE["useEffect(() => {<br/>  const timer = setInterval(...)<br/>  return () => clearInterval(timer)<br/>}, [])"]
+    
+    A --> TIMING["⏱ Execution Timeline"]
+    TIMING --> TIME1["1️⃣ Component renders (JSX)"]
+    TIME1 --> TIME2["2️⃣ Browser paints (user sees UI)"]
+    TIME2 --> TIME3["3️⃣ useEffect runs (AFTER paint!)"]
+    TIME3 --> TIME4["4️⃣ If state changed in effect"]
+    TIME4 --> TIME5["5️⃣ Re-render → repeat"]
+    
+    A --> COMMON["Common Mistakes"]
+    COMMON --> MISTAKE1["❌ Missing dependency array"]
+    MISTAKE1 --> MISTAKE1FIX["→ Effect runs every render"]
+    
+    COMMON --> MISTAKE2["❌ Missing dependencies"]
+    MISTAKE2 --> MISTAKE2FIX["→ Stale closures, wrong behavior"]
+    
+    COMMON --> MISTAKE3["❌ Setting state without deps"]
+    MISTAKE3 --> MISTAKE3FIX["→ Infinite loop"]
+    
+    COMMON --> MISTAKE4["❌ Forgetting cleanup"]
+    MISTAKE4 --> MISTAKE4FIX["→ Memory leaks, extra listeners"]
+    
+    classDef title fill:#6366f1,stroke:#4338ca,color:#fff,font-size:16px
+    classDef good fill:#10b981,stroke:#059669,color:#fff
+    classDef warn fill:#f59e0b,stroke:#d97706,color:#fff
+    classDef bad fill:#dc2626,stroke:#b91c1c,color:#fff
+    classDef info fill:#3b82f6,stroke:#1d4ed8,color:#fff
