@@ -1,0 +1,66 @@
+.dashboard-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+.dashboard-header h1 { font-size: 1.8rem; font-weight: 800; }
+
+.dashboard-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.tab {
+  background: none;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  margin-bottom: -1px;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.section-title { font-size: 1.2rem; font-weight: 700; }
+
+.project-form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.project-form-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
+
+.project-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
+.form-row { display: flex; flex-direction: column; gap: 1rem; }
+.form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+
+.project-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.project-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.project-row-info { flex: 1; }
+.project-row-info h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+.project-row-info h4 a { color: var(--text); text-decoration: none; }
+.project-row-info h4 a:hover { color: var(--primary); }
+.project-row-info p { font-size: 0.83rem; color: var(--text-muted); }
+.project-row-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+.profile-edit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 600px;
+}
+
+@media (max-width: 600px) {
+  .form-2col { grid-template-columns: 1fr; }
+  .project-row { flex-direction: column; }
+}
