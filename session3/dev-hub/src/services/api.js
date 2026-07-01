@@ -1,4 +1,3 @@
-// Mock Data
 const mockUser = {
   _id: 'user_1',
   name: 'Demo Admin',
@@ -50,10 +49,8 @@ const mockDevelopers = [
   }
 ];
 
-// Helper to simulate network delay
 const delay = (ms = 400) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Fake Axios Instance
 const api = {
   defaults: {
     headers: { common: {} }
@@ -65,14 +62,13 @@ const api = {
     if (url === '/projects') return { data: mockProjects };
     if (url === '/users') return { data: mockDevelopers };
     
-    // Handle dynamic routes like /projects/proj_1
     if (url.startsWith('/projects/') && !url.includes('comments')) {
       const project = mockProjects.find(p => url.includes(p._id));
       return { data: project || mockProjects[0] };
     }
     
-    if (url.includes('/comments')) return { data: [] }; // Mock empty comments
-    if (url.startsWith('/users/')) return { data: mockUser }; // Mock profile view
+    if (url.includes('/comments')) return { data: [] }; 
+    if (url.startsWith('/users/')) return { data: mockUser }; 
     
     return { data: {} };
   },
@@ -86,22 +82,21 @@ const api = {
     }
     
     if (url.includes('/like')) {
-      const project = mockProjects[0]; // Simplified mock like return
+      const project = mockProjects[0]; 
       return { data: { ...project, likes: [...project.likes, 'user_1'] } };
     }
     
-    // Mock creating a new project or comment
     return { data: { _id: Math.random().toString(), ...data, createdAt: new Date() } };
   },
 
   put: async (url, data) => {
     await delay();
-    return { data: { ...data, _id: 'updated_id' } }; // Mock successful update
+    return { data: { ...data, _id: 'updated_id' } }; 
   },
 
   delete: async (url) => {
     await delay();
-    return { data: { success: true } }; // Mock successful deletion
+    return { data: { success: true } };
   }
 };
 
