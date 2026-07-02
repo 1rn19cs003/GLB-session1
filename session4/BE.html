@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Architecture Diagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+        
+        .architecture-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background: #667eea;
+            margin-right: 12px;
+        }
+        
+        .layer {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .layer-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .layer-icon {
+            width: 24px;
+            height: 24px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .component {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .component:hover {
+            background: #f0f4ff;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+        
+        .component-name {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+        
+        .component-desc {
+            color: #666;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .data-flow {
+            background: #f8f9fa;
+            border-left: 4px solid #764ba2;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        
+        .data-flow-title {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .data-flow-item {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 4px;
+            padding-left: 12px;
+            border-left: 2px solid #764ba2;
+            margin-left: 8px;
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            color: #764ba2;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .middleware-flow {
+            background: linear-gradient(90deg, #f8f9fa 0%, #f0f4ff 100%);
+            border: 1px dashed #667eea;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .routes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .route-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .route-method {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-weight: bold;
+            margin-right: 6px;
+            font-size: 10px;
+        }
+        
+        .route-path {
+            color: #555;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .legend {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-item {
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .legend-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .tech-stack {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .tech-label {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .tech-value {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ Backend Architecture Diagram</h1>
+        <div class="subtitle">Express.js + RBAC Authentication System</div>
+        
+        <!-- Architecture Diagram -->
+        <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+            <!-- Title -->
+            <text x="500" y="25" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Backend Architecture Flow</text>
+            
+            <!-- Client Layer -->
+            <rect x="50" y="60" width="900" height="80" fill="none" stroke="#667eea" stroke-width="2" stroke-dasharray="5,5" rx="5"/>
+            <text x="500" y="85" font-size="14" font-weight="bold" text-anchor="middle" fill="#667eea">Client / Frontend</text>
+            <text x="500" y="105" font-size="11" text-anchor="middle" fill="#666">HTTP Requests (JSON)</text>
+            
+            <!-- Arrow -->
+            <path d="M 500 140 L 500 170" stroke="#667eea" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+            
+            <!-- Server -->
+            <rect x="250" y="170" width="500" height="80" fill="#e8eef9" stroke="#667eea" stroke-width="2" rx="5"/>
+            <text x="500" y="195" font-size="14" font-weight="bold" text-anchor="middle" fill="#667eea">Express.js Server (server.js)</text>
+            <text x="500" y="215" font-size="11" text-anchor="middle" fill="#666">REST API with routing, middleware, error handling</text>
+            
+            <!-- Arrow -->
+            <path d="M 500 250 L 500 280" stroke="#667eea" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+            
+            <!-- Routes -->
+            <rect x="50" y="280" width="900" height="100" fill="#f8f9fa" stroke="#764ba2" stroke-width="2" rx="5"/>
+            <text x="500" y="305" font-size="12" font-weight="bold" text-anchor="middle" fill="#764ba2">Route Layers</text>
+            
+            <g font-size="10" fill="#555">
+                <text x="100" y="330">📍 /auth</text>
+                <text x="100" y="350">Login, Register</text>
+                
+                <text x="250" y="330">📍 /users</text>
+                <text x="250" y="350">CRUD Operations</text>
+                
+                <text x="400" y="330">📍 /projects</text>
+                <text x="400" y="350">Project Management</text>
+                
+                <text x="600" y="330">📍 /comments</text>
+                <text x="600" y="350">Comment Threads</text>
+            </g>
+            
+            <!-- Arrow -->
+            <path d="M 500 380 L 500 410" stroke="#667eea" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+            
+            <!-- Middleware & Controllers -->
+            <rect x="50" y="410" width="420" height="120" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
+            <text x="260" y="435" font-size="12" font-weight="bold" text-anchor="middle" fill="#ff9800">Middleware Layer</text>
+            <g font-size="10" fill="#555">
+                <text x="80" y="460">🔐 auth.js - JWT Validation</text>
+                <text x="80" y="480">👤 rbac.js - Role-Based Access</text>
+                <text x="80" y="500">✓ Error Handling</text>
+                <text x="80" y="520">✓ Request Logging</text>
+            </g>
+            
+            <rect x="530" y="410" width="420" height="120" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2" rx="5"/>
+            <text x="740" y="435" font-size="12" font-weight="bold" text-anchor="middle" fill="#9c27b0">Controllers Layer</text>
+            <g font-size="10" fill="#555">
+                <text x="560" y="460">📋 authController.js</text>
+                <text x="560" y="480">👥 userController.js</text>
+                <text x="560" y="500">🚀 projectController.js</text>
+                <text x="560" y="520">💬 commentController.js</text>
+            </g>
+            
+            <!-- Arrow -->
+            <path d="M 500 530 L 500 560" stroke="#667eea" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+            
+            <!-- Data Layer -->
+            <rect x="150" y="560" width="700" height="50" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+            <text x="500" y="575" font-size="12" font-weight="bold" text-anchor="middle" fill="#4caf50">Data Layer (JSON Files)</text>
+            <g font-size="10" fill="#555">
+                <text x="200" y="597">📄 users.json</text>
+                <text x="400" y="597">📄 projects.json</text>
+                <text x="650" y="597">📄 comments.json</text>
+            </g>
+            
+            <!-- Arrow marker definition -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                    <polygon points="0 0, 10 5, 0 10" fill="#667eea"/>
+                </marker>
+            </defs>
+        </svg>
+        
+        <!-- Server Architecture -->
+        <div class="architecture-section">
+            <div class="section-title">🔧 Server Configuration</div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-label">Runtime</div>
+                    <div class="tech-value">Node.js</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">Framework</div>
+                    <div class="tech-value">Express.js</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">Authentication</div>
+                    <div class="tech-value">JWT Tokens</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">Data Storage</div>
+                    <div class="tech-value">JSON Files</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">Authorization</div>
+                    <div class="tech-value">RBAC Model</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-label">CORS</div>
+                    <div class="tech-value">Enabled</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Routes Layer -->
+        <div class="architecture-section">
+            <div class="section-title">📍 API Routes</div>
+            
+            <div class="layer">
+                <div class="layer-title">
+                    <div class="layer-icon">1</div>
+                    Authentication Routes
+                </div>
+                <div class="routes-list">
+                    <div class="route-item">
+                        <span class="route-method">POST</span>
+                        <span class="route-path">/auth/register</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">POST</span>
+                        <span class="route-path">/auth/login</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">
+                    <div class="layer-icon">2</div>
+                    User Management Routes
+                </div>
+                <div class="routes-list">
+                    <div class="route-item">
+                        <span class="route-method">GET</span>
+                        <span class="route-path">/users</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">GET</span>
+                        <span class="route-path">/users/:id</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">PUT</span>
+                        <span class="route-path">/users/:id</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">DELETE</span>
+                        <span class="route-path">/users/:id</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">
+                    <div class="layer-icon">3</div>
+                    Project Management Routes
+                </div>
+                <div class="routes-list">
+                    <div class="route-item">
+                        <span class="route-method">GET</span>
+                        <span class="route-path">/projects</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">POST</span>
+                        <span class="route-path">/projects</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">PUT</span>
+                        <span class="route-path">/projects/:id</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">DELETE</span>
+                        <span class="route-path">/projects/:id</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">
+                    <div class="layer-icon">4</div>
+                    Comments Routes
+                </div>
+                <div class="routes-list">
+                    <div class="route-item">
+                        <span class="route-method">GET</span>
+                        <span class="route-path">/comments</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">POST</span>
+                        <span class="route-path">/comments</span>
+                    </div>
+                    <div class="route-item">
+                        <span class="route-method">DELETE</span>
+                        <span class="route-path">/comments/:id</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Middleware Layer -->
+        <div class="architecture-section">
+            <div class="section-title">⚙️ Middleware Pipeline</div>
+            
+            <div class="middleware-flow">
+                <strong style="color: #667eea;">Request Flow:</strong><br>
+                Client Request → Express Server → Route Matching → Middleware Stack → Controller Logic → Response
+            </div>
+            
+            <div class="layer" style="margin-top: 20px;">
+                <div class="layer-title">
+                    <div class="layer-icon">🔐</div>
+                    auth.js - JWT Verification
+                </div>
+                <div style="font-size: 12px; color: #555; line-height: 1.6;">
+                    ✓ Validates JWT token from Authorization header<br>
+                    ✓ Decodes token and extracts user information<br>
+                    ✓ Attaches user object to request (req.user)<br>
+                    ✓ Rejects request if token is invalid or expired
+                </div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">
+                    <div class="layer-icon">👤</div>
+                    rbac.js - Role-Based Access Control
+                </div>
+                <div style="font-size: 12px; color: #555; line-height: 1.6;">
+                    ✓ Checks user role (admin, user, moderator, etc.)<br>
+                    ✓ Authorizes access based on role permissions<br>
+                    ✓ Ensures users can only perform allowed actions<br>
+                    ✓ Returns 403 Forbidden if access denied
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controllers Layer -->
+        <div class="architecture-section">
+            <div class="section-title">📋 Controllers</div>
+            
+            <div class="components-grid">
+                <div class="component">
+                    <div class="component-name">authController.js</div>
+                    <div class="component-desc">Handles user registration, login, and token generation. Validates credentials and creates JWT.</div>
+                </div>
+                <div class="component">
+                    <div class="component-name">userController.js</div>
+                    <div class="component-desc">CRUD operations for users. Retrieves user profiles, updates profile data, manages user records.</div>
+                </div>
+                <div class="component">
+                    <div class="component-name">projectController.js</div>
+                    <div class="component-desc">Manages project creation, updates, deletion. Handles project listing with filters and sorting.</div>
+                </div>
+                <div class="component">
+                    <div class="component-name">commentController.js</div>
+                    <div class="component-desc">Manages comments on projects. CRUD operations and comment thread organization.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Data Layer -->
+        <div class="architecture-section">
+            <div class="section-title">💾 Data Storage</div>
+            
+            <div class="layer">
+                <div class="layer-title">
+                    <div class="layer-icon">📁</div>
+                    Data Persistence
+                </div>
+                <div style="font-size: 12px; color: #555; line-height: 1.8;">
+                    <strong>File-based Storage:</strong> JSON files used for simplicity in development<br>
+                    <strong>Location:</strong> /src/data/ directory<br>
+                    <strong>Migration Path:</strong> Can be replaced with database (MongoDB, PostgreSQL) for production<br>
+                    <strong>Seed Data:</strong> seed.js initializes sample data on startup<br>
+                    <strong>Data Sync:</strong> dataStore.js utility handles file read/write operations
+                </div>
+            </div>
+            
+            <div class="components-grid" style="margin-top: 20px;">
+                <div class="component">
+                    <div class="component-name">users.json</div>
+                    <div class="component-desc">Stores user profiles, authentication data, and role information.</div>
+                </div>
+                <div class="component">
+                    <div class="component-name">projects.json</div>
+                    <div class="component-desc">Stores project details, descriptions, and metadata.</div>
+                </div>
+                <div class="component">
+                    <div class="component-name">comments.json</div>
+                    <div class="component-desc">Stores user comments on projects with references and timestamps.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Authentication Flow -->
+        <div class="architecture-section">
+            <div class="section-title">🔐 Authentication & Authorization Flow</div>
+            
+            <div class="data-flow">
+                <div class="data-flow-title">Login Flow:</div>
+                <div class="data-flow-item">1. User submits email/password via POST /auth/login</div>
+                <div class="data-flow-item">2. authController validates credentials against users.json</div>
+                <div class="data-flow-item">3. If valid, JWT token is generated with user ID and role</div>
+                <div class="data-flow-item">4. Token sent to client and stored (localStorage/cookie)</div>
+                <div class="data-flow-item">5. Client includes token in Authorization header for requests</div>
+            </div>
+            
+            <div class="data-flow" style="margin-top: 15px;">
+                <div class="data-flow-title">Protected Route Flow:</div>
+                <div class="data-flow-item">1. Client sends request with JWT in Authorization header</div>
+                <div class="data-flow-item">2. auth.js middleware verifies JWT signature and expiry</div>
+                <div class="data-flow-item">3. rbac.js checks user role for endpoint permissions</div>
+                <div class="data-flow-item">4. If authorized, controller processes request</div>
+                <div class="data-flow-item">5. Response sent with updated data or confirmation</div>
+            </div>
+        </div>
+        
+        <!-- Architecture Legend -->
+        <div class="architecture-section">
+            <div class="section-title">📚 Architecture Legend</div>
+            <div class="legend">
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-label">🎯 Client Layer</div>
+                        <div>Frontend application sending HTTP requests</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-label">🔄 Route Layer</div>
+                        <div>API endpoints organized by resource</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-label">⚙️ Middleware</div>
+                        <div>Authentication, authorization, error handling</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-label">📋 Controller</div>
+                        <div>Business logic and data operations</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-label">💾 Data Layer</div>
+                        <div>JSON file-based data storage</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-label">🔐 RBAC</div>
+                        <div>Role-Based Access Control for authorization</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <div class="architecture-section" style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border: 2px solid #667eea;">
+            <div class="section-title">✨ Key Features</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <strong style="color: #667eea;">JWT Authentication</strong>
+                    <p style="font-size: 12px; color: #555; margin-top: 5px;">Stateless authentication using JWT tokens for API security</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Role-Based Authorization</strong>
+                    <p style="font-size: 12px; color: #555; margin-top: 5px;">RBAC system to control user permissions and actions</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">RESTful API Design</strong>
+                    <p style="font-size: 12px; color: #555; margin-top: 5px;">Clean REST endpoints following standard HTTP conventions</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Modular Structure</strong>
+                    <p style="font-size: 12px; color: #555; margin-top: 5px;">Separated concerns with routes, controllers, and middleware</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">JSON Data Storage</strong>
+                    <p style="font-size: 12px; color: #555; margin-top: 5px;">Simple file-based storage for development and prototyping</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Error Handling</strong>
+                    <p style="font-size: 12px; color: #555; margin-top: 5px;">Centralized error handling with meaningful responses</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

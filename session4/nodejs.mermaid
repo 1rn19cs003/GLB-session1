@@ -1,0 +1,125 @@
+flowchart TD
+    A["Node.js Backend Architecture"]:::title
+    
+    A --> CLIENT["CLIENT (Frontend)"]
+    CLIENT --> REQ["HTTP Request<br/>JSON Data"]
+    
+    REQ --> SERVER["Express Server<br/>server.js"]
+    
+    SERVER --> MIDDLEWARE["MIDDLEWARE STACK"]
+    
+    MIDDLEWARE --> M1["1️. express.json()"]
+    M1 --> M2["2️. CORS Middleware"]
+    M2 --> M3["3️. Authentication (JWT)"]
+    M3 --> M4["4️. Authorization (RBAC)"]
+    M4 --> M5["5️. Route Matching"]
+    
+    M5 --> ROUTING["ROUTING LAYER"]
+    
+    ROUTING --> AUTH[" /auth Routes"]
+    AUTH --> AR1["POST /auth/register"]
+    AUTH --> AR2["POST /auth/login"]
+    
+    ROUTING --> USERS[" /users Routes"]
+    USERS --> UR1["GET /users"]
+    USERS --> UR2["GET /users/:id"]
+    USERS --> UR3["POST /users"]
+    USERS --> UR4["PUT /users/:id"]
+    USERS --> UR5["DELETE /users/:id"]
+    
+    ROUTING --> PROJECTS[" /projects Routes"]
+    PROJECTS --> PR1["GET /projects"]
+    PROJECTS --> PR2["POST /projects"]
+    PROJECTS --> PR3["PUT /projects/:id"]
+    PROJECTS --> PR4["DELETE /projects/:id"]
+    
+    ROUTING --> COMMENTS[" /comments Routes"]
+    COMMENTS --> CR1["GET /comments"]
+    COMMENTS --> CR2["POST /comments"]
+    COMMENTS --> CR3["DELETE /comments/:id"]
+    
+    AR1 --> CONTROLLER[" CONTROLLER LAYER"]
+    AR2 --> CONTROLLER
+    UR1 --> CONTROLLER
+    UR2 --> CONTROLLER
+    UR3 --> CONTROLLER
+    UR4 --> CONTROLLER
+    UR5 --> CONTROLLER
+    PR1 --> CONTROLLER
+    PR2 --> CONTROLLER
+    PR3 --> CONTROLLER
+    PR4 --> CONTROLLER
+    CR1 --> CONTROLLER
+    CR2 --> CONTROLLER
+    CR3 --> CONTROLLER
+    
+    CONTROLLER --> C1["authController.js<br/>Register, Login"]
+    CONTROLLER --> C2["userController.js<br/>CRUD operations"]
+    CONTROLLER --> C3["projectController.js<br/>Project management"]
+    CONTROLLER --> C4["commentController.js<br/>Comment management"]
+    
+    C1 --> DATA[" DATA LAYER"]
+    C2 --> DATA
+    C3 --> DATA
+    C4 --> DATA
+    
+    DATA --> D1[" users.json<br/>User profiles, hashed passwords"]
+    DATA --> D2[" projects.json<br/>Project details"]
+    DATA --> D3[" comments.json<br/>Comments with references"]
+    
+    D1 --> RESPONSE[" Response"]
+    D2 --> RESPONSE
+    D3 --> RESPONSE
+    
+    RESPONSE --> JSON["JSON Response<br/>Status Code"]
+    JSON --> CLIENT
+    
+    A --> AUTH_FLOW[" JWT Authentication Flow"]
+    
+    AUTH_FLOW --> AF1["1. User sends email/password"]
+    AF1 --> AF2["2. authController validates"]
+    AF2 --> AF3["3. Password hashed with bcrypt"]
+    AF3 --> AF4["4. JWT token generated"]
+    AF4 --> AF5["5. Token sent to client"]
+    AF5 --> AF6["6. Client stores token"]
+    AF6 --> AF7["7. Client sends token in Authorization header"]
+    AF7 --> AF8["8. auth.js middleware verifies"]
+    AF8 --> AF9["9. User data attached to req"]
+    
+    A --> RBAC_FLOW[" RBAC Authorization Flow"]
+    
+    RBAC_FLOW --> RB1["1. User role from JWT"]
+    RB1 --> RB2["2. rbac.js checks permissions"]
+    RB2 --> RB3["Role = admin/user/moderator"]
+    RB3 --> RB4["Check allowed actions"]
+    RB4 --> RB5["Allow or deny access"]
+    
+    A --> ASYNC[" Async/Await Pattern"]
+    
+    ASYNC --> AS1["async function controller()"]
+    AS1 --> AS2["try block"]
+    AS2 --> AS3["await database query"]
+    AS3 --> AS4["process data"]
+    AS4 --> AS5["send response"]
+    
+    A --> ERROR[" Error Handling"]
+    
+    ERROR --> ER1["try/catch in controllers"]
+    ER1 --> ER2["pass error to next()"]
+    ER2 --> ER3["global error middleware"]
+    ER3 --> ER4["return status code & message"]
+    
+    classDef title fill:#667eea,stroke:#4338ca,color:#fff,font-size:16px
+    classDef flow fill:#f0f4ff,stroke:#667eea,color:#333
+    classDef auth fill:#fee2e2,stroke:#dc2626,color:#333
+    classDef data fill:#ecfdf5,stroke:#10b981,color:#333
+    classDef async fill:#fef3c7,stroke:#f59e0b,color:#333
+    
+    style MIDDLEWARE fill:#fff3e0,stroke:#ff9800
+    style CONTROLLER fill:#f3e5f5,stroke:#9c27b0
+    style ROUTING fill:#e0f2f1,stroke:#009688
+    style DATA fill:#ecfdf5,stroke:#10b981
+    style AUTH_FLOW fill:#fee2e2,stroke:#dc2626
+    style RBAC_FLOW fill:#f3e5f5,stroke:#9c27b0
+    style ASYNC fill:#fef3c7,stroke:#f59e0b
+    style ERROR fill:#fee2e2,stroke:#dc2626
